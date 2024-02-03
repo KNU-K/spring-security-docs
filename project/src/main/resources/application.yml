@@ -9,3 +9,10 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
+server:
+  servlet:
+    session:
+      timeout: 10s # 세션 만료 기간을 1800초(30분)로 설정
+logging:
+  level:
+    com.example.project.config.CustomUserDetailsService: DEBUG
