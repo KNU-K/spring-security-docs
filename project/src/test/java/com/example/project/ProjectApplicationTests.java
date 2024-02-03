@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -96,14 +97,27 @@ class ProjectApplicationTests {
         assertThat(remainingUsers).hasSize(1);
     }
     @Test
+    @DisplayName("find by user id test")
+    void findByUserIdTest(){
+        String userId="asd1", userPw="asd2";
+        Optional<User> foundUser = userRepository.findByUserId("asd1");
+        assertThat(foundUser).isNotEmpty();
+        assertThat(foundUser.get().getUserId()).isEqualTo(userId);
+    }
+    @Test
+    @DisplayName("find by user id test2")
+    void emptyTest(){
+        String userId="asd1123", userPw="asd2";
+        Optional<User> foundUser = userRepository.findByUserId(userId);
+        assertThat(foundUser).isEmpty();
+    }
+    @Test
     @DisplayName("test")
     void dtoTest() {
         String userId="asd1", userPw="asd2";
         UserFormRequestDto user = new UserFormRequestDto(userId,userPw);
         assertThat(user.getUserId()).isEqualTo("asd1");
         assertThat(user.getUserPw()).isEqualTo("asd2");
-
-
     }
 
 }
